@@ -11,7 +11,7 @@
 				<ul>
 					<li data-title="h01" class="hover_btn min"><nuxt-link to="/">Home</nuxt-link>
 					</li>
-					<li data-title="h02" class="hover_btn min"><nuxt-link to="/post">Posts</nuxt-link>
+					<li data-title="h02" class="hover_btn min"><nuxt-link to="/posts">Posts</nuxt-link>
 					<li data-title="h03" class="hover_btn min"><nuxt-link to="/custom">customPosts</nuxt-link>
 					<li data-title="h04" class="hover_btn min"><nuxt-link to="/contact">Contact</nuxt-link>
 					</li>

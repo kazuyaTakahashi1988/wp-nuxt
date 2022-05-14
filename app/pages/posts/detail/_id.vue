@@ -1,24 +1,31 @@
 <template>
   <div class="page-post inner1040">
     <h2 class="ttl ttl02">
-      <span>{{ customPostsDetaile.title.rendered }}</span>
+      <span>{{ postDetaile.title.rendered }}</span>
     </h2>
     {{/* -------------------------------------------------------
-      ▽ 記事詳細  ▽
-    ---------------------------------------------------------- */}}
+        ▽ 記事詳細  ▽
+      ---------------------------------------------------------- */}}
     <article class="post-detail">
       <div class="post_contents-area">
-        <div class="data">{{ customPostsDetaile.date.slice(0, 10) }}</div>
+        <div class="data">{{ postDetaile.date.slice(0, 10) }}</div>
+        <!-- ▽ カテゴリー ▽ -->
+        <div class="cate" v-if="postDetaile._embedded['wp:term'][0]">
+          <div
+            v-for="category in postDetaile._embedded['wp:term'][0]"
+            :key="category.id"
+          >
+            <span>category：</span
+            ><nuxt-link :to="`/posts/cate/${category.slug}`">{{
+              category.name
+            }}</nuxt-link>
+          </div>
+        </div>
 
         <div class="wclmn">
-          <div
-            v-if="customPostsDetaile._embedded['wp:featuredmedia']"
-            class="thum"
-          >
+          <div v-if="postDetaile._embedded['wp:featuredmedia']" class="thum">
             サムネイル<img
-              :src="
-                customPostsDetaile._embedded['wp:featuredmedia'][0].source_url
-              "
+              :src="postDetaile._embedded['wp:featuredmedia'][0].source_url"
               alt="サムネイル"
               id="detaiThum"
             />
@@ -26,7 +33,7 @@
           <div v-else class="thum noImages"><span>no-images</span></div>
           <div
             class="content editor-style"
-            v-html="customPostsDetaile.content.rendered"
+            v-html="postDetaile.content.rendered"
           ></div>
         </div>
 
@@ -34,14 +41,14 @@
             ▽ カスタムフィールドの出力 ▽
           ---------------------------------------------------------- */}}
         <div class="custam-fields-area">
-          <h3 class="ttl">customField</h3>
+          <h3 class="ttl">CustomField</h3>
           <div class="sub-title">
-            <span>sub-title：</span>{{ customPostsDetaile.acf.sub_title }}
+            <span>sub-title：</span>{{ postDetaile.acf.sub_title }}
           </div>
           <div class="wclmn">
-            <div v-if="customPostsDetaile.acf.sub_thum" class="sub-thum">
+            <div v-if="postDetaile.acf.sub_thum" class="sub-thum">
               <span>sub-サムネイル</span>
-              <img v-bind:src="customPostsDetaile.acf.sub_thum" />
+              <img v-bind:src="postDetaile.acf.sub_thum" />
             </div>
             <div v-else class="sub-sum thum noImages">
               <span>no-images</span>
@@ -50,7 +57,7 @@
               <span class="span">sub-コンテンツ</span>
               <div
                 class="editor-style"
-                v-html="customPostsDetaile.acf.sub_contents"
+                v-html="postDetaile.acf.sub_contents"
               ></div>
             </div>
           </div>
@@ -70,14 +77,14 @@ export default {
     /* ----------------------------------------------
 	    ▽ meta & OGP ▽
 	  ---------------------------------------------- */
-      title: this.customPostsDetaile.title.rendered,
+      title: this.postDetaile.title.rendered,
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
           hid: "description",
           name: "description",
-          content: this.customPostsDetaile.content.rendered
+          content: this.postDetaile.content.rendered
             .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "")
             .substr(0, 130),
         },
@@ -90,33 +97,30 @@ export default {
         {
           hid: "twitter:image",
           name: "twitter:image",
-          content:
-            this.customPostsDetaile._embedded["wp:featuredmedia"][0].source_url,
+          content: this.postDetaile._embedded["wp:featuredmedia"][0].source_url,
         },
         { hid: "og:type", property: "og:type", content: "website" },
         {
           hid: "og:title",
           property: "og:title",
-          content: this.customPostsDetaile.title.rendered,
+          content: this.postDetaile.title.rendered,
         },
         {
           hid: "og:url",
           property: "og:url",
-          content:
-            "http://35.76.243.135/custom/detail/" + this.customPostsDetaile.id, // デプロイ済みであることが前提です。
+          content: "http://35.76.243.135/post/detail/" + this.postDetaile.id, // デプロイ済みであることが前提です。
         },
         {
           hid: "og:description",
           property: "og:description",
-          content: this.customPostsDetaile.content.rendered
+          content: this.postDetaile.content.rendered
             .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "")
             .substr(0, 130),
         },
         {
           hid: "og:image",
           property: "og:image",
-          content:
-            this.customPostsDetaile._embedded["wp:featuredmedia"][0].source_url,
+          content: this.postDetaile._embedded["wp:featuredmedia"][0].source_url,
         },
         { hid: "og:site_name", name: "og:site_name", content: "NuxtSampleApp" },
       ],
@@ -126,20 +130,20 @@ export default {
     /* ----------------------------------------------
 	    ▽ 記事取得の処理 ▽
 	  ---------------------------------------------- */
-    if (store.getters["customPostsDetaile"][route.params.id]) {
+    if (store.getters["postDetaile"][route.params.id]) {
       return;
     } else {
-      await store.dispatch("fetchcustomPostsDetaile", { id: route.params.id });
+      await store.dispatch("fetchPostDetaile", { id: route.params.id });
     }
   },
   computed: {
     /* ----------------------------------------------
 	    ▽ 取得記事を変数にセット ▽
 	  ---------------------------------------------- */
-    customPostsDetaile() {
-      return this.customPostsDetaile[this.$route.params.id];
+    postDetaile() {
+      return this.postDetaile[this.$route.params.id];
     },
-    ...mapGetters(["customPostsDetaile"]),
+    ...mapGetters(["postDetaile"]),
   },
   /* ----------------------------------------------
     ▽ トランジションアニメーション ▽

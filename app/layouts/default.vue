@@ -1,23 +1,27 @@
 <template>
-<div>
+  <div>
+    {{ /* ----------------------------------------------
+	  ▽ 共通ヘッダー ▽
+	---------------------------------------------- */ }}
+    <CommonHeader />
 
-	<!-- ▼▼▼ header comp ⇒ ['./components/Header.vue'] -->
-	<Header />
+    {{ /* ----------------------------------------------
+	  ▽ コンテンツ ▽
+	---------------------------------------------- */ }}
+    <nuxt />
 
-	<!-- ▼▼▼ pages ⇒ ['./pages/**.vue'] -->
-	<nuxt />
-
-	<!-- ▼▼▼ footer comp ⇒ ['./components/Footer.vue'] -->
-	<Footer />
-
-</div>
+    {{ /* ----------------------------------------------
+	  ▽ 共通フッター ▽
+	---------------------------------------------- */ }}
+    <CommonFooter />
+  </div>
 </template>
 
 <script>
-import Header from '~/components/Header.vue'
-import Footer from '~/components/Footer.vue'
+import CommonHeader from "~/components/CommonHeader.vue";
+import CommonFooter from "~/components/CommonFooter.vue";
 
 export default {
-  components: { Header, Footer },
-}
+  components: { CommonHeader, CommonFooter },
+};
 </script>

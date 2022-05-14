@@ -4,7 +4,7 @@
 
 	<div class="ft_nav">
 	  <nuxt-link to="/">Home</nuxt-link>　|　 
-	  <nuxt-link to="/post">Posts</nuxt-link>　|　 
+	  <nuxt-link to="/posts">Posts</nuxt-link>　|　 
 	  <nuxt-link to="/custom">Custom</nuxt-link>　|　 
 	  <nuxt-link to="/contact">Contact</nuxt-link>
 	</div>

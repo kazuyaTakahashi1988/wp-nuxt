@@ -16,9 +16,9 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'ディスクリプション' },
-      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }, // 画像のタイプ。詳しくは後術。
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }, // 画像のタイプ。
       { hid: 'twitter:site', name: 'twitter:site', content: '@uzr4b' },
-      { hid: 'twitter:image', name: 'twitter:image', content: 'http://35.76.243.135/ogp.jpg'}, // 苦労しました。詳しくは後術。
+      { hid: 'twitter:image', name: 'twitter:image', content: 'http://35.76.243.135/ogp.jpg'},
       { hid: 'og:type', property: 'og:type', content: 'website' },
       {
         hid: 'og:title',
@@ -113,7 +113,7 @@ export default {
         return axios.get('http://wp.empty-service.com/wp-json/wp/v2/org_api')
         .then(res => {
           const data = res.data.map(
-            post => '/' + post.slug + '/detail/' + post.id
+            post => `/${post.slug == `post` && `posts` || post.slug }/detail/${post.id}`
             );
           return {
             data,

@@ -2,7 +2,7 @@
 	<swiper :options="swiperOption">
 
 	  <swiper-slide>
-	  	<logo />
+	  	<PartsLogo />
 	  	<div><h1 style="font-family: serif;">nuxt-project<span>REST API is called from <a href="http://wp.empty-service.com/" target="_blank">http://wp.empty-service.com/</a></span></h1></div>
 	  </swiper-slide>
 	  <swiper-slide>Slide 2</swiper-slide>
@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import PartsLogo from '~/components/PartsLogo.vue'
 export default {
-  components: { Logo, }, 
+  components: { PartsLogo, }, 
   data() {
     return {
       swiperOption: {
