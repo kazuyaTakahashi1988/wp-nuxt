@@ -62,6 +62,10 @@ export default {
 	   ▽ リンククリック時の処理 ▽
 	  ---------------------------------------------- */
     routepush(perid, thumUrl) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       if (thumUrl && !document.getElementById("fixed-img")) {
         var thumID = document.getElementById("thum" + perid);
         var rect = thumID.getBoundingClientRect();
@@ -77,7 +81,7 @@ export default {
       this.$router.push(`/${this.postType}/detail/${perid}`);
     },
   },
-  mounted: function () {
+  mounted: function() {
     this.posted = this.posts;
     /* ----------------------------------------------
 	   ▽ ページャー生成の処理 ▽

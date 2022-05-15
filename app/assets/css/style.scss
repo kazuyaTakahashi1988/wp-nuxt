@@ -539,4 +539,6 @@ input[type="submit"]{
 	top: 0;
 	left: 0;
 	transition: 1s;
+	box-shadow: 0 0 10px #f5f5f5;
+	z-index: 1000;
   }
