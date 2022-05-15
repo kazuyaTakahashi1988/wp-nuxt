@@ -74,7 +74,7 @@ import { mapGetters } from "vuex";
 export default {
   head() {
     return {
-    /* ----------------------------------------------
+      /* ----------------------------------------------
 	    ▽ meta & OGP ▽
 	  ---------------------------------------------- */
       title: this.postDetaile.title.rendered,
@@ -155,34 +155,41 @@ export default {
   validate({ params }) {
     return /^\d+$/.test(params.id);
   },
-  mounted: function () {
+  mounted: function() {
     /* ----------------------------------------------
 	   ▽ 遷移時の処理 ▽
 	  ---------------------------------------------- */
-    var fixedImg = document.getElementById("fixed-img");
-    if (fixedImg) {
-      var detaiThum = document.getElementById("detaiThum");
-      var rectdetail = detaiThum.getBoundingClientRect();
-      detaiThum.style.opacity = "0";
-      Object.assign(fixedImg.style, {
-        top: rectdetail.top + window.pageYOffset + "px",
-        left: rectdetail.left + "px",
-        width: detaiThum.clientWidth + "px",
-      });
-      setTimeout(
-        function () {
+    setTimeout(
+      function() {
+        var fixedImg = document.getElementById("fixed-img");
+        if (fixedImg) {
+          var detaiThum = document.getElementById("detaiThum");
+          var rectdetail = detaiThum.getBoundingClientRect();
+          Object.assign(fixedImg.style, {
+            top: rectdetail.top + window.pageYOffset + "px",
+            left: rectdetail.left + "px",
+            width: detaiThum.clientWidth + "px",
+          });
+          setTimeout(
+            function() {
+              detaiThum.style.opacity = "1";
+              fixedImg.style.opacity = "0";
+            }.bind(this),
+            1000
+          );
+          setTimeout(
+            function() {
+              fixedImg.parentNode.removeChild(fixedImg);
+            }.bind(this),
+            1700
+          );
+        } else {
+          var detaiThum = document.getElementById("detaiThum");
           detaiThum.style.opacity = "1";
-          fixedImg.style.opacity = "0";
-        }.bind(this),
-        1000
-      );
-      setTimeout(
-        function () {
-          fixedImg.parentNode.removeChild(fixedImg);
-        }.bind(this),
-        1700
-      );
-    }
+        }
+      }.bind(this),
+      300
+    );
   },
 };
 </script>
