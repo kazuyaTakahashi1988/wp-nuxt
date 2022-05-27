@@ -108,7 +108,7 @@ export default {
         {
           hid: "og:url",
           property: "og:url",
-          content: "http://35.76.243.135/postｓ/detail/" + this.postDetaile.id, // デプロイ済みであることが前提です。
+          content: "http://35.76.243.135/posts/detail/" + this.postDetaile.id, // デプロイ済みであることが前提です。
         },
         {
           hid: "og:description",

@@ -37,7 +37,7 @@ export default {
         description: 'Posts一覧のディスクリプション',
         type: 'article',
         image: 'http://35.76.243.135/ogp.jpg',
-        url: 'http://35.76.243.135/post/'
+        url: 'http://35.76.243.135/posts/'
       }
     }
   },
