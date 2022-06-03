@@ -37,7 +37,7 @@
       ▽ ページャー  ▽
     ---------------------------------------------------------- */}}
     <ul class="pager" v-if="postPer">
-      <li v-for="n of Math.ceil(postCounts / postPer)" :key="n">
+      <li v-for="n of Math.ceil(postCounts / postPer)" :key="n" @click="pageTopReturn()">
         <nuxt-link :to="`/${postType}/page/${n}`">{{ n }}</nuxt-link>
       </li>
     </ul>
@@ -79,6 +79,12 @@ export default {
         document.body.appendChild(cImg);
       }
       this.$router.push(`/${this.postType}/detail/${perid}`);
+    },
+    pageTopReturn() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     },
   },
   mounted: function() {
